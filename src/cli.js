@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import chalk from 'chalk';
-import { init } from './init.js';
+import { init, refresh, doctor } from './init.js';
 
 const cwd = process.cwd();
 const cmd = process.argv[2];
@@ -20,12 +20,25 @@ task - Lightweight AI-assisted task workflow
 
 Usage:
   task init     Initialize task workflow in current directory
-  task --help   Show this help`);
+  task refresh  Reinstall task-cli managed workflow skills
+  task doctor   Check workflow setup and skill freshness
+  task --help   Show this help
+
+Recommended flows after init:
+  fast: task-fast
+  task: task-explore -> task-implement -> task-review
+  bug:  bug-explore -> bug-fix -> bug-review`);
 }
 
 switch (cmd) {
   case 'init':
     init(cwd, { fs, path, log });
+    break;
+  case 'refresh':
+    refresh(cwd, { fs, path, log });
+    break;
+  case 'doctor':
+    doctor(cwd, { fs, path, log });
     break;
   case undefined:
   case '--help':

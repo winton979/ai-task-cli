@@ -1,6 +1,6 @@
 {
   "name": "@winton979/task-cli",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "Lightweight task workflow CLI for AI-assisted development",
   "type": "module",
   "bin": {
