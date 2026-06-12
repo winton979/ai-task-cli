@@ -157,21 +157,50 @@ Instead of maintaining large specifications, it focuses on:
 
 The goal is to improve quality without slowing down iteration speed.
 
+## Compared with OpenSpec-Style Workflows
 
-## Can This Be Simpler?
+Task CLI is designed as a lightweight alternative to heavier spec-driven systems such as OpenSpec.
 
-Yes. The main simplification is to collapse the old 4-step paths:
+Detailed specification workflows can improve alignment, traceability, and consistency. They are often the right choice for large initiatives, cross-team programs, and environments with strong process requirements.
 
-* `task-explore` now includes brief generation.
-* `bug-explore` now includes bug brief generation.
-* `task-implement` and `bug-fix` now validate the work and archive the brief automatically when complete.
+The difficulty is that the same level of ceremony does not always fit day-to-day engineering work. For frequent bug fixes, small features, and fast iteration, the process can become heavier than the change itself. When that happens, maintenance overhead increases, documentation quality starts to drift, and teams gradually stop using the workflow as originally intended.
 
-That leaves these practical flows:
+Task CLI takes a narrower and more pragmatic approach:
 
-* Explore only: `/task-explore` or `/bug-explore`
-* Execute: `/task-implement` or `/bug-fix`
-* Review: `/task-review` or `/bug-review`
-* One-shot small work: `/task-fast`
+* clarify the requirement
+* capture only the minimum useful brief
+* execute against acceptance criteria
+* review the result
+* keep a lightweight decision trail
+
+The goal is not to replace specification systems in every context. It is to provide a workflow that people will actually keep using during day-to-day engineering work.
+
+## Strengths and Tradeoffs
+
+Task CLI is optimized for execution speed and sustained adoption rather than full process coverage.
+
+Strengths:
+
+* much lower process overhead for bugs, small features, and short iterations
+* easier to adopt in mature codebases where engineers already know the product context
+* encourages real usage because the workflow is short enough to sustain
+* keeps enough structure to improve clarity without forcing large documents
+
+Tradeoffs:
+
+* less suitable for large cross-team initiatives that need formal design traceability
+* relies more on engineer judgment and review quality than a full specification process
+* stores less long-form historical context than a dedicated spec repository
+
+## Recommended Workflow Model
+
+Task CLI keeps the user-facing flow short:
+
+* `task-fast`
+* `task-explore -> task-implement -> task-review`
+* `bug-explore -> bug-fix -> bug-review`
+
+The `archive/` directories remain as internal storage. They are not separate user steps in the recommended workflow.
 
 ## Upgrading Existing Projects
 
@@ -189,13 +218,15 @@ This will:
 
 This avoids touching unrelated custom skills in the same project.
 
-The `archive/` directories remain as internal storage. They are not separate user steps in the recommended workflow.
-
 Before refreshing, you can inspect the current setup with:
 
 ```bash
 task doctor
 ```
+
+## License
+
+MIT
 
 > Task CLI does not install Grill Me automatically.
 > Users remain free to choose any Grill Me compatible implementation.

@@ -2,6 +2,7 @@
   "name": "@winton979/task-cli",
   "version": "1.1.1",
   "description": "Lightweight task workflow CLI for AI-assisted development",
+  "license": "MIT",
   "type": "module",
   "bin": {
     "task": "./bin/task.js"
