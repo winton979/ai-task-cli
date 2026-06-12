@@ -57,7 +57,7 @@ task --help
 
 After initialization, Task CLI creates the `.ai/` workspace and installs workflow skills into both `.claude/skills/` and `.codex/skills/`.
 
-Use `task refresh` in existing projects to remove and reinstall only the workflow skills managed by task-cli. It does not delete your `.ai` briefs, archives, or decision log.
+Use `task refresh` in existing projects to remove and reinstall only the workflow skills managed by task-cli. It does not delete your `.ai` briefs, internal archives, or decision log.
 
 Use `task doctor` to check whether the required directories exist, whether managed skills are missing or outdated, and whether the `.gitignore` rules are present.
 
@@ -70,7 +70,7 @@ Use `task doctor` to check whether the required directories exist, whether manag
 ```text
 /task-fast
     ↓
-clarify + brief + implement + validate + archive
+clarify + brief + implement + validate
     ↓
 /task-review
 ```
@@ -84,8 +84,6 @@ TASK_READY
     ↓
 /task-implement
     ↓
-/task archived
-    ↓
 /task-review
 ```
 
@@ -97,8 +95,6 @@ TASK_READY
 BUG_READY
     ↓
 /bug-fix
-    ↓
-/bug archived
     ↓
 /bug-review
 ```
@@ -155,7 +151,7 @@ Instead of maintaining large specifications, it focuses on:
 
 1. Clarifying requirements before coding
 2. Capturing execution context in concise briefs
-3. Executing with validation and lightweight archiving
+3. Executing with validation while archiving automatically in the background
 4. Reviewing work against acceptance criteria
 5. Keeping a lightweight decision history
 
@@ -168,12 +164,12 @@ Yes. The main simplification is to collapse the old 4-step paths:
 
 * `task-explore` now includes brief generation.
 * `bug-explore` now includes bug brief generation.
-* `task-implement` and `bug-fix` now validate and archive the brief when the work is complete.
+* `task-implement` and `bug-fix` now validate the work and archive the brief automatically when complete.
 
 That leaves these practical flows:
 
 * Explore only: `/task-explore` or `/bug-explore`
-* Execute and archive: `/task-implement` or `/bug-fix`
+* Execute: `/task-implement` or `/bug-fix`
 * Review: `/task-review` or `/bug-review`
 * One-shot small work: `/task-fast`
 
@@ -192,6 +188,8 @@ This will:
 * reinstall the latest versions of those skills
 
 This avoids touching unrelated custom skills in the same project.
+
+The `archive/` directories remain as internal storage. They are not separate user steps in the recommended workflow.
 
 Before refreshing, you can inspect the current setup with:
 

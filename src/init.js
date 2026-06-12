@@ -14,10 +14,10 @@ const GITIGNORE_BLOCK = [
 const SKILLS = {
   'task-fast': {
     name: 'task-fast',
-    description: 'Fast path for small requirements. Clarify quickly, create the brief, implement, verify, and archive.',
+    description: 'Fast path for small requirements. Clarify quickly, create the brief, implement, and verify. Archive automatically on completion.',
     content: `---
 name: task-fast
-description: Fast path for small requirements. Clarify quickly, create the brief, implement, verify, and archive.
+description: Fast path for small requirements. Clarify quickly, create the brief, implement, and verify. Archive automatically on completion.
 user-invocable: true
 ---
 
@@ -35,7 +35,7 @@ Workflow
 3. Show the brief before coding.
 4. If the user does not object, implement immediately.
 5. Verify the result against the acceptance criteria.
-6. Move the brief to:
+6. Archive the brief automatically by moving it to:
 
 .ai/tasks/archive/YYYY-MM-DD-task-name.md
 
@@ -138,10 +138,10 @@ TASK_READY
 
   'task-implement': {
     name: 'task-implement',
-    description: 'Implement the latest active task brief, validate it, and archive it when complete.',
+    description: 'Implement the latest active task brief and validate it. Archive automatically when complete.',
     content: `---
 name: task-implement
-description: Implement the latest active task brief, validate it, and archive it when complete.
+description: Implement the latest active task brief and validate it. Archive automatically when complete.
 user-invocable: true
 ---
 
@@ -158,7 +158,7 @@ Rules
 5. Avoid unnecessary refactoring.
 6. State assumptions explicitly.
 7. Validate the result before stopping.
-8. If the work is complete, move the brief to .ai/tasks/archive/.
+8. If the work is complete, archive the brief automatically by moving it to .ai/tasks/archive/.
 
 Output
 
@@ -174,18 +174,15 @@ Files modified.
 
 How acceptance criteria were satisfied.
 
-## Archive
-
-Whether the brief was archived.
 `,
   },
 
   'task-review': {
     name: 'task-review',
-    description: 'Review the latest task implementation against the active or archived task brief.',
+    description: 'Review the latest task implementation against the corresponding task brief.',
     content: `---
 name: task-review
-description: Review the latest task implementation against the active or archived task brief.
+description: Review the latest task implementation against the corresponding task brief.
 user-invocable: true
 ---
 
@@ -294,10 +291,10 @@ BUG_READY
 
   'bug-fix': {
     name: 'bug-fix',
-    description: 'Fix the latest active bug brief, validate the result, and archive the brief when complete.',
+    description: 'Fix the latest active bug brief and validate the result. Archive automatically when complete.',
     content: `---
 name: bug-fix
-description: Fix the latest active bug brief, validate the result, and archive the brief when complete.
+description: Fix the latest active bug brief and validate the result. Archive automatically when complete.
 user-invocable: true
 ---
 
@@ -314,7 +311,7 @@ Rules
 5. Preserve existing behavior.
 6. Explain reasoning.
 7. Validate the fix before stopping.
-8. If the bug is fixed, move the brief to .ai/bugs/archive/.
+8. If the bug is fixed, archive the brief automatically by moving it to .ai/bugs/archive/.
 
 Output
 
@@ -330,18 +327,15 @@ Changes made.
 
 Verification performed.
 
-## Archive
-
-Whether the brief was archived.
 `,
   },
 
   'bug-review': {
     name: 'bug-review',
-    description: 'Review the latest bug fix against the active or archived bug brief.',
+    description: 'Review the latest bug fix against the corresponding bug brief.',
     content: `---
 name: bug-review
-description: Review the latest bug fix against the active or archived bug brief.
+description: Review the latest bug fix against the corresponding bug brief.
 user-invocable: true
 ---
 
