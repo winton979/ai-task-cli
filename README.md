@@ -10,7 +10,7 @@ Designed for:
 
 Task CLI provides a lightweight alternative to heavyweight spec-driven workflows by combining:
 
-* Requirement clarification (via Grill Me)
+* Requirement clarification (prefer Grill Me, fallback built in)
 * Brief generation
 * Implementation
 * Review
@@ -34,7 +34,7 @@ task init
 
 ## Prerequisites
 
-Task CLI relies on a Grill Me compatible skill for requirement exploration.
+Task CLI can use a Grill Me compatible skill for requirement and bug exploration.
 
 Recommended:
 
@@ -43,6 +43,8 @@ npx add-skill PJ-SBN-593844/skill-grill-me
 ```
 
 Compatible Grill Me implementations may also work.
+
+If no Grill Me compatible skill is installed, `task-fast`, `task-explore`, and `bug-explore` fall back to built-in clarification prompts.
 
 ---
 
@@ -59,7 +61,7 @@ After initialization, Task CLI creates the `.ai/` workspace and installs workflo
 
 Use `task refresh` in existing projects to remove and reinstall only the workflow skills managed by task-cli. It does not delete your `.ai` briefs, internal archives, or decision log.
 
-Use `task doctor` to check whether the required directories exist, whether managed skills are missing or outdated, and whether the `.gitignore` rules are present.
+Use `task doctor` to check whether the required directories exist, whether managed skills are missing or outdated, whether a local Grill Me companion was detected, and whether the `.gitignore` rules are present.
 
 ---
 
@@ -237,4 +239,4 @@ task doctor
 MIT
 
 > Task CLI does not install Grill Me automatically.
-> Users remain free to choose any Grill Me compatible implementation.
+> Users remain free to choose any Grill Me compatible implementation, and the explore skills fall back to built-in clarification if none is installed.

@@ -1,3 +1,5 @@
+import chalk from 'chalk';
+
 const TASK_ACTIVE_DIR = '.ai/tasks/active';
 const TASK_ARCHIVE_DIR = '.ai/tasks/archive';
 const BUG_ACTIVE_DIR = '.ai/bugs/active';
@@ -10,6 +12,12 @@ const GITIGNORE_BLOCK = [
   '.ai/tasks/active/*.md',
   '.ai/bugs/active/*.md',
 ].join('\n');
+
+const GRILL_ME_HINTS = [
+  'grill-me',
+  'skill-grill-me',
+  'grill me',
+];
 
 const SKILLS = {
   'task-fast': {
@@ -27,19 +35,20 @@ Handle a small requirement in one continuous workflow with minimal ceremony.
 
 Workflow
 
-1. Clarify the requirement just enough to remove ambiguity.
-2. Create a concise task brief and save it to:
+1. If a Grill Me compatible skill is available in the current environment, use it for requirement clarification.
+2. If no Grill Me compatible skill is available, clarify the requirement yourself with focused questions just far enough to remove ambiguity.
+3. Create a concise task brief and save it to:
 
 .ai/tasks/active/YYYY-MM-DD-task-name.md
 
-3. Show the brief before coding.
-4. If the user does not object, implement immediately.
-5. Verify the result against the acceptance criteria.
-6. Archive the brief automatically by moving it to:
+4. Show the brief before coding.
+5. If the user does not object, implement immediately.
+6. Verify the result against the acceptance criteria.
+7. Archive the brief automatically by moving it to:
 
 .ai/tasks/archive/YYYY-MM-DD-task-name.md
 
-7. Summarize the outcome and any follow-up risks.
+8. Summarize the outcome and any follow-up risks.
 
 Task Brief Format
 
@@ -91,15 +100,16 @@ Clarify requirements and leave behind a ready-to-execute brief.
 
 Workflow
 
-1. Explore the requirement through focused questions.
-2. Continue until the task is sufficiently understood.
-3. Do not write code.
-4. Do not create implementation details.
-5. Once the requirement is clear, generate a concise task brief and save it to:
+1. If a Grill Me compatible skill is available in the current environment, use it for requirement exploration.
+2. If no Grill Me compatible skill is available, explore the requirement yourself through focused questions.
+3. Continue until the task is sufficiently understood.
+4. Do not write code.
+5. Do not create implementation details.
+6. Once the requirement is clear, generate a concise task brief and save it to:
 
 .ai/tasks/active/YYYY-MM-DD-task-name.md
 
-6. Show the saved brief and stop.
+7. Show the saved brief and stop.
 
 Task Brief Format
 
@@ -270,22 +280,23 @@ Investigate a bug and leave behind a ready-to-fix brief.
 
 Rules
 
-1. Do not write code.
-2. Do not suggest fixes before enough evidence exists.
-3. Identify root cause candidates.
-4. Ask focused questions.
-5. Request evidence whenever possible.
-6. Separate:
+1. If a Grill Me compatible skill is available in the current environment, use it for bug exploration.
+2. If no Grill Me compatible skill is available, ask focused questions and drive the investigation yourself.
+3. Do not write code.
+4. Do not suggest fixes before enough evidence exists.
+5. Identify root cause candidates.
+6. Request evidence whenever possible.
+7. Separate:
 
    * observed behavior
    * expected behavior
    * assumptions
 
-7. Once the bug is sufficiently understood, generate a brief and save it to:
+8. Once the bug is sufficiently understood, generate a brief and save it to:
 
 .ai/bugs/active/YYYY-MM-DD-bug-name.md
 
-8. Show the saved brief and stop.
+9. Show the saved brief and stop.
 
 Bug Brief Format
 
@@ -484,6 +495,49 @@ function skillFilePath(path, cwd, skillRoot, skillName) {
   return path.join(cwd, skillRoot, skillName, 'SKILL.md');
 }
 
+function hasGrillMeHint(value) {
+  const normalized = value.toLowerCase();
+  return GRILL_ME_HINTS.some((hint) => normalized.includes(hint));
+}
+
+function detectLocalGrillMeSkill(fs, path, cwd, skillRoot) {
+  const root = path.join(cwd, skillRoot);
+  if (!fs.existsSync(root)) {
+    return null;
+  }
+
+  for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
+    if (!entry.isDirectory()) {
+      continue;
+    }
+
+    if (MANAGED_SKILL_NAMES.includes(entry.name)) {
+      continue;
+    }
+
+    if (hasGrillMeHint(entry.name)) {
+      return entry.name;
+    }
+
+    const skillPath = path.join(root, entry.name, 'SKILL.md');
+    if (!fs.existsSync(skillPath)) {
+      continue;
+    }
+
+    const content = fs.readFileSync(skillPath, 'utf-8');
+    const metadata = content
+      .split('---')
+      .slice(1, 2)
+      .join('\n');
+
+    if (hasGrillMeHint(metadata)) {
+      return entry.name;
+    }
+  }
+
+  return null;
+}
+
 function logCheck(log, ok, label, detail) {
   if (ok) {
     log.chalk.green(`  OK   ${label}${detail ? ` - ${detail}` : ''}`);
@@ -678,6 +732,22 @@ export function doctor(cwd, { fs, path, log }) {
         matches ? 'current' : 'outdated, run `task refresh`'
       );
     }
+  }
+
+  const grillMeFindings = [
+    [CLAUDE_SKILLS_DIR, detectLocalGrillMeSkill(fs, path, cwd, CLAUDE_SKILLS_DIR)],
+    [CODEX_SKILLS_DIR, detectLocalGrillMeSkill(fs, path, cwd, CODEX_SKILLS_DIR)],
+  ];
+
+  for (const [skillRoot, skillName] of grillMeFindings) {
+    if (skillName) {
+      logCheck(log, true, `${skillRoot} Grill Me companion`, `detected ${skillName}`);
+      continue;
+    }
+
+    console.log(chalk.yellow(
+      `  WARN ${skillRoot} Grill Me companion - not detected locally; task-fast, task-explore, and bug-explore will use built-in clarification fallback`
+    ));
   }
 
   const gitignorePath = path.join(cwd, '.gitignore');
