@@ -73,6 +73,8 @@ Use `task doctor` to check whether the required directories exist, whether manag
 clarify + brief + implement + validate
     ↓
 /task-review
+    or
+/task-cancel
 ```
 
 ### Larger Requirement
@@ -85,6 +87,8 @@ TASK_READY
 /task-implement
     ↓
 /task-review
+    or
+/task-cancel
 ```
 
 ### Bug Fix
@@ -97,6 +101,8 @@ BUG_READY
 /bug-fix
     ↓
 /bug-review
+    or
+/bug-cancel
 ```
 
 ---
@@ -109,12 +115,14 @@ BUG_READY
 * task-explore
 * task-implement
 * task-review
+* task-cancel
 
 ### Bug Workflow
 
 * bug-explore
 * bug-fix
 * bug-review
+* bug-cancel
 
 ### Other
 
@@ -197,8 +205,8 @@ Tradeoffs:
 Task CLI keeps the user-facing flow short:
 
 * `task-fast`
-* `task-explore -> task-implement -> task-review`
-* `bug-explore -> bug-fix -> bug-review`
+* `task-explore -> task-implement -> task-review` or `task-cancel`
+* `bug-explore -> bug-fix -> bug-review` or `bug-cancel`
 
 The `archive/` directories remain as internal storage. They are not separate user steps in the recommended workflow.
 
@@ -213,7 +221,7 @@ task refresh
 This will:
 
 * keep `.ai/tasks`, `.ai/bugs`, and `.ai/decisions`
-* remove only these managed skills from `.claude/skills/` and `.codex/skills/`: `task-fast`, `task-explore`, `task-implement`, `task-review`, `bug-explore`, `bug-fix`, `bug-review`, `decision-log`
+* remove only these managed skills from `.claude/skills/` and `.codex/skills/`: `task-fast`, `task-explore`, `task-implement`, `task-review`, `task-cancel`, `bug-explore`, `bug-fix`, `bug-review`, `bug-cancel`, `decision-log`
 * reinstall the latest versions of those skills
 
 This avoids touching unrelated custom skills in the same project.

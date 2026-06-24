@@ -26,8 +26,8 @@ Usage:
 
 Recommended flows after init:
   fast: task-fast
-  task: task-explore -> task-implement -> task-review
-  bug:  bug-explore -> bug-fix -> bug-review`);
+  task: task-explore -> task-implement -> task-review | task-cancel
+  bug:  bug-explore -> bug-fix -> bug-review | bug-cancel`);
 }
 
 switch (cmd) {
