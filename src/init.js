@@ -19,6 +19,17 @@ const GRILL_ME_HINTS = [
   'grill me',
 ];
 
+const DECISIONS_READ_GUIDANCE = `Decision Intake
+
+Before finalizing the brief, inspect .ai/decisions/decisions.md if it exists and contains real entries beyond the title.
+
+Use it narrowly:
+
+* extract only decisions that materially constrain this task
+* ignore unrelated historical notes
+* treat the file as a source of durable project invariants, not as a second specification
+* if relevant decisions exist, summarize them briefly in Context or Constraints instead of copying them verbatim`;
+
 const SKILLS = {
   'task-fast': {
     name: 'task-fast',
@@ -37,18 +48,22 @@ Workflow
 
 1. If a Grill Me compatible skill is available in the current environment, use it for requirement clarification.
 2. If no Grill Me compatible skill is available, clarify the requirement yourself with focused questions just far enough to remove ambiguity.
-3. Create a concise task brief and save it to:
+3. Read the project code and conventions needed to avoid obvious conflicts.
+4. Read .ai/decisions/decisions.md if it exists and has entries. Pull in only decisions that materially constrain this task.
+5. Create a concise task brief and save it to:
 
 .ai/tasks/active/YYYY-MM-DD-task-name.md
 
-4. Show the brief before coding.
-5. If the user does not object, implement immediately.
-6. Verify the result against the acceptance criteria.
-7. Archive the brief automatically by moving it to:
+6. Show the brief before coding.
+7. If the user does not object, implement immediately.
+8. Verify the result against the acceptance criteria.
+9. Archive the brief automatically by moving it to:
 
 .ai/tasks/archive/YYYY-MM-DD-task-name.md
 
-8. Summarize the outcome and any follow-up risks.
+10. Summarize the outcome and any follow-up risks.
+
+${DECISIONS_READ_GUIDANCE}
 
 Task Brief Format
 
@@ -105,11 +120,14 @@ Workflow
 3. Continue until the task is sufficiently understood.
 4. Do not write code.
 5. Do not create implementation details.
-6. Once the requirement is clear, generate a concise task brief and save it to:
+6. Before writing the brief, inspect .ai/decisions/decisions.md if it exists and has entries. Pull in only decisions that materially constrain this task.
+7. Once the requirement is clear, generate a concise task brief and save it to:
 
 .ai/tasks/active/YYYY-MM-DD-task-name.md
 
-7. Show the saved brief and stop.
+8. Show the saved brief and stop.
+
+${DECISIONS_READ_GUIDANCE}
 
 Task Brief Format
 
@@ -292,11 +310,14 @@ Rules
    * expected behavior
    * assumptions
 
-8. Once the bug is sufficiently understood, generate a brief and save it to:
+8. Before writing the brief, inspect .ai/decisions/decisions.md if it exists and has entries. Pull in only decisions that materially constrain the observed behavior, expected behavior, or likely root cause.
+9. Once the bug is sufficiently understood, generate a brief and save it to:
 
 .ai/bugs/active/YYYY-MM-DD-bug-name.md
 
-9. Show the saved brief and stop.
+10. Show the saved brief and stop.
+
+${DECISIONS_READ_GUIDANCE}
 
 Bug Brief Format
 
@@ -455,6 +476,8 @@ user-invocable: true
 Purpose
 
 Record important implementation decisions.
+
+Only record decisions that are likely to matter beyond a single task. Good candidates are durable constraints, architecture boundaries, rejected alternatives someone may retry later, externally forced choices, and intentional behavior that otherwise looks incorrect.
 
 Save Location
 

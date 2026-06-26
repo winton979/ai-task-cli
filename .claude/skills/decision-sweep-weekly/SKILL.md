@@ -1,0 +1,67 @@
+---
+name: decision-sweep-weekly
+description: Weekly sweep of recent task and bug briefs to decide which deserve a decision-log entry. Proposes entries for confirmation before appending.
+user-invocable: true
+---
+
+Purpose
+
+Batch-review the past week of work and sediment only the decisions that outlive a single task. Replaces per-task reminders with one weekly pass.
+
+When to Run
+
+Run once per week, ideally on Friday. May also run ad-hoc after a busy stretch.
+
+Workflow
+
+1. Scan briefs created in the last 7 days under .ai/tasks/archive/ and .ai/bugs/archive/. Filter by filename date prefix YYYY-MM-DD. If a brief lacks a date prefix, fall back to filesystem mtime.
+2. For cancelled briefs in either archive, treat the abandonment itself as potential decision material.
+3. Evaluate each brief against the Sediment Conditions below.
+4. For each candidate, draft a decision entry using the four-section format.
+5. Present a single review list: every scanned brief with a verdict (write / skip / insufficient info), then the proposed drafts grouped at the end.
+6. Do NOT append anything yet. Wait for the user to confirm which drafts to keep, edit, or drop.
+7. Only after confirmation, append the approved entries to .ai/decisions/decisions.md, oldest first, under the matching YYYY-MM-DD section heading.
+8. Report what was appended and what was skipped.
+
+Sediment Conditions
+
+A brief becomes a decision entry if it satisfies any of:
+
+* Cross-task impact: the choice constrains how future tasks must be written.
+* A concrete alternative was rejected and someone could plausibly pick it later.
+* Counter-intuitive choice: code reads like an anti-pattern but is intentional.
+* Externally driven: compliance, performance, compatibility, or a third-party API limit forced the call.
+* A cancelled attempt whose failure is itself a useful conclusion.
+
+Skip Conditions
+
+* Affects only the implementation detail of one task.
+* A temporary or unsettled conclusion.
+* A bare fact with no decision behind it.
+
+Entry Format
+
+## YYYY-MM-DD
+
+### Problem
+
+What issue was encountered.
+
+### Decision
+
+What was chosen.
+
+### Reason
+
+Why this choice was made.
+
+### Alternatives Considered
+
+What alternatives were rejected.
+
+Requirements
+
+* Maximum 10 lines per decision
+* Append only
+* One date section per day; multiple decisions on the same day stack under the same heading
+* Never edit or delete prior entries

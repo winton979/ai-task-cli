@@ -12,18 +12,31 @@ Workflow
 
 1. If a Grill Me compatible skill is available in the current environment, use it for requirement clarification.
 2. If no Grill Me compatible skill is available, clarify the requirement yourself with focused questions just far enough to remove ambiguity.
-3. Create a concise task brief and save it to:
+3. Read the project code and conventions needed to avoid obvious conflicts.
+4. Read .ai/decisions/decisions.md if it exists and has entries. Pull in only decisions that materially constrain this task.
+5. Create a concise task brief and save it to:
 
 .ai/tasks/active/YYYY-MM-DD-task-name.md
 
-4. Show the brief before coding.
-5. If the user does not object, implement immediately.
-6. Verify the result against the acceptance criteria.
-7. Archive the brief automatically by moving it to:
+6. Show the brief before coding.
+7. If the user does not object, implement immediately.
+8. Verify the result against the acceptance criteria.
+9. Archive the brief automatically by moving it to:
 
 .ai/tasks/archive/YYYY-MM-DD-task-name.md
 
-8. Summarize the outcome and any follow-up risks.
+10. Summarize the outcome and any follow-up risks.
+
+Decision Intake
+
+Before finalizing the brief, inspect .ai/decisions/decisions.md if it exists and contains real entries beyond the title.
+
+Use it narrowly:
+
+* extract only decisions that materially constrain this task
+* ignore unrelated historical notes
+* treat the file as a source of durable project invariants, not as a second specification
+* if relevant decisions exist, summarize them briefly in Context or Constraints instead of copying them verbatim
 
 Task Brief Format
 

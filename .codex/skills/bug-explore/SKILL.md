@@ -22,11 +22,23 @@ Rules
    * expected behavior
    * assumptions
 
-8. Once the bug is sufficiently understood, generate a brief and save it to:
+8. Before writing the brief, inspect .ai/decisions/decisions.md if it exists and has entries. Pull in only decisions that materially constrain the observed behavior, expected behavior, or likely root cause.
+9. Once the bug is sufficiently understood, generate a brief and save it to:
 
 .ai/bugs/active/YYYY-MM-DD-bug-name.md
 
-9. Show the saved brief and stop.
+10. Show the saved brief and stop.
+
+Decision Intake
+
+Before finalizing the brief, inspect .ai/decisions/decisions.md if it exists and contains real entries beyond the title.
+
+Use it narrowly:
+
+* extract only decisions that materially constrain this task
+* ignore unrelated historical notes
+* treat the file as a source of durable project invariants, not as a second specification
+* if relevant decisions exist, summarize them briefly in Context or Constraints instead of copying them verbatim
 
 Bug Brief Format
 

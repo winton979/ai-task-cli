@@ -15,11 +15,23 @@ Workflow
 3. Continue until the task is sufficiently understood.
 4. Do not write code.
 5. Do not create implementation details.
-6. Once the requirement is clear, generate a concise task brief and save it to:
+6. Before writing the brief, inspect .ai/decisions/decisions.md if it exists and has entries. Pull in only decisions that materially constrain this task.
+7. Once the requirement is clear, generate a concise task brief and save it to:
 
 .ai/tasks/active/YYYY-MM-DD-task-name.md
 
-7. Show the saved brief and stop.
+8. Show the saved brief and stop.
+
+Decision Intake
+
+Before finalizing the brief, inspect .ai/decisions/decisions.md if it exists and contains real entries beyond the title.
+
+Use it narrowly:
+
+* extract only decisions that materially constrain this task
+* ignore unrelated historical notes
+* treat the file as a source of durable project invariants, not as a second specification
+* if relevant decisions exist, summarize them briefly in Context or Constraints instead of copying them verbatim
 
 Task Brief Format
 

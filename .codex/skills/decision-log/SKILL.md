@@ -8,6 +8,8 @@ Purpose
 
 Record important implementation decisions.
 
+Only record decisions that are likely to matter beyond a single task. Good candidates are durable constraints, architecture boundaries, rejected alternatives someone may retry later, externally forced choices, and intentional behavior that otherwise looks incorrect.
+
 Save Location
 
 .ai/decisions/decisions.md

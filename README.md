@@ -46,6 +46,8 @@ Compatible Grill Me implementations may also work.
 
 If no Grill Me compatible skill is installed, `task-fast`, `task-explore`, and `bug-explore` fall back to built-in clarification prompts.
 
+When `.ai/decisions/decisions.md` contains real entries, those skills should inspect it before finalizing a brief and pull in only the decisions that materially constrain the current task or bug.
+
 ---
 
 ## Usage
@@ -166,6 +168,8 @@ The skill scans archived task and bug briefs from the past 7 days, judges which 
 
 Use `decision-log` for in-the-moment recording and `decision-sweep-weekly` for periodic cleanup. Either alone is enough; using both is fine.
 
+The decisions file is intentionally narrow. It is meant to hold durable project invariants and reusable constraints, not a running transcript of every local implementation choice.
+
 ## Philosophy
 
 Task CLI is intentionally lightweight.
@@ -179,6 +183,8 @@ Instead of maintaining large specifications, it focuses on:
 5. Keeping a lightweight decision history
 
 The goal is to improve quality without slowing down iteration speed.
+
+That decision history is meant to be selectively reusable. Explore and fast-path skills should consult it to avoid violating existing project decisions, but only the parts that materially constrain the current work belong in the new brief.
 
 ## Compared with OpenSpec-Style Workflows
 
