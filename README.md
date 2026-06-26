@@ -129,6 +129,7 @@ BUG_READY
 ### Other
 
 * decision-log
+* decision-sweep-weekly
 
 ---
 
@@ -152,6 +153,18 @@ BUG_READY
 ```
 
 ---
+
+## Weekly Decision Sweep
+
+Calling `/decision-log` after every task is easy to forget. As a lower-friction alternative, run `decision-sweep-weekly` once per week (Friday is a natural fit):
+
+```
+/decision-sweep-weekly
+```
+
+The skill scans archived task and bug briefs from the past 7 days, judges which ones contain a decision worth keeping (cross-task impact, rejected alternatives, counter-intuitive choices, externally driven calls, or instructive cancellations), drafts the entries, and waits for confirmation before appending to `.ai/decisions/decisions.md`.
+
+Use `decision-log` for in-the-moment recording and `decision-sweep-weekly` for periodic cleanup. Either alone is enough; using both is fine.
 
 ## Philosophy
 
@@ -223,7 +236,7 @@ task refresh
 This will:
 
 * keep `.ai/tasks`, `.ai/bugs`, and `.ai/decisions`
-* remove only these managed skills from `.claude/skills/` and `.codex/skills/`: `task-fast`, `task-explore`, `task-implement`, `task-review`, `task-cancel`, `bug-explore`, `bug-fix`, `bug-review`, `bug-cancel`, `decision-log`
+* remove only these managed skills from `.claude/skills/` and `.codex/skills/`: `task-fast`, `task-explore`, `task-implement`, `task-review`, `task-cancel`, `bug-explore`, `bug-fix`, `bug-review`, `bug-cancel`, `decision-log`, `decision-sweep-weekly`
 * reinstall the latest versions of those skills
 
 This avoids touching unrelated custom skills in the same project.
