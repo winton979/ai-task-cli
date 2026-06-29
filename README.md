@@ -164,11 +164,11 @@ Calling `/decision-log` after every task is easy to forget. As a lower-friction 
 /decision-sweep-weekly
 ```
 
-The skill scans archived task and bug briefs from the past 7 days, judges which ones contain a decision worth keeping (cross-task impact, rejected alternatives, counter-intuitive choices, externally driven calls, or instructive cancellations), drafts the entries, and waits for confirmation before appending to `.ai/decisions/decisions.md`.
+The skill scans archived task and bug briefs from the past 7 days, judges which ones contain a decision worth keeping (cross-task impact, rejected alternatives, counter-intuitive choices, externally driven calls, or instructive cancellations), drafts the entries, and waits for confirmation before writing anything to `.ai/decisions/decisions.md`. When a draft overlaps with or updates an existing decision, it should present the old and new versions together and ask whether to append, revise, merge, supersede, or skip.
 
 Use `decision-log` for in-the-moment recording and `decision-sweep-weekly` for periodic cleanup. Either alone is enough; using both is fine.
 
-The decisions file is intentionally narrow. It is meant to hold durable project invariants and reusable constraints, not a running transcript of every local implementation choice.
+The decisions file is intentionally narrow. It is meant to hold durable project invariants and reusable constraints, not a running transcript of every local implementation choice. The default write mode should still be append, but revisions to existing entries are reasonable when explicitly reviewed and confirmed by the user.
 
 ## Philosophy
 
