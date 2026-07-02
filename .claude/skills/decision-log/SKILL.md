@@ -1,6 +1,6 @@
 ---
 name: decision-log
-description: Record implementation decisions to .ai/decisions/decisions.md. Append-only, max 10 lines per entry.
+description: Record implementation decisions to .ai/decisions/decisions.md. Default to append; if updating an existing decision, require explicit user confirmation first. Max 10 lines per entry.
 user-invocable: true
 ---
 
@@ -37,5 +37,8 @@ What alternatives were rejected.
 Requirements
 
 * Maximum 10 lines per decision
-* Append only
+* Default to append
+* If a new entry appears to revise, merge with, or supersede an existing decision, do not edit or append yet
+* Instead, show the relevant prior entry, explain the overlap or conflict, and ask the user whether to append, revise, merge, supersede, or skip
+* Only modify an existing entry after explicit user confirmation
 * Keep concise

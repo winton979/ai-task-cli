@@ -1,11 +1,19 @@
 {
   "name": "@winton979/task-cli",
-  "version": "1.3.2",
+  "version": "1.4.0",
   "description": "Lightweight task workflow CLI for AI-assisted development",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/winton979/ai-task-cli.git"
+  },
+  "homepage": "https://github.com/winton979/ai-task-cli#readme",
+  "bugs": {
+    "url": "https://github.com/winton979/ai-task-cli/issues"
+  },
   "type": "module",
   "bin": {
-    "task": "./bin/task.js"
+    "task": "bin/task.js"
   },
   "files": [
     "bin",

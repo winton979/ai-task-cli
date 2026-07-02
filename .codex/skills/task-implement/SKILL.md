@@ -19,6 +19,14 @@ Rules
 7. Validate the result before stopping.
 8. If the work is complete, archive the brief automatically by moving it to .ai/tasks/archive/.
 
+When making implementation decisions
+
+* Reuse existing helpers, patterns, and APIs before introducing new ones.
+* Before introducing a new abstraction, confirm that extending existing code would not satisfy the requirement.
+* Choose the simplest implementation that satisfies the acceptance criteria.
+* Introduce a new dependency or abstraction only when no in-project option exists, and state why.
+* Do not optimize for hypothetical future reuse.
+
 Output
 
 ## Plan

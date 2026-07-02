@@ -14,18 +14,19 @@ Workflow
 2. If no Grill Me compatible skill is available, clarify the requirement yourself with focused questions just far enough to remove ambiguity.
 3. Read the project code and conventions needed to avoid obvious conflicts.
 4. Read .ai/decisions/decisions.md if it exists and has entries. Pull in only decisions that materially constrain this task.
-5. Create a concise task brief and save it to:
+5. Before finalizing the brief, perform a Complexity Assessment.
+6. Create a concise task brief and save it to:
 
 .ai/tasks/active/YYYY-MM-DD-task-name.md
 
-6. Show the brief before coding.
-7. If the user does not object, implement immediately.
-8. Verify the result against the acceptance criteria.
-9. Archive the brief automatically by moving it to:
+7. Show the brief before coding.
+8. If the user does not object, implement immediately.
+9. Verify the result against the acceptance criteria.
+10. Archive the brief automatically by moving it to:
 
 .ai/tasks/archive/YYYY-MM-DD-task-name.md
 
-10. Summarize the outcome and any follow-up risks.
+11. Summarize the outcome and any follow-up risks.
 
 Decision Intake
 
@@ -37,6 +38,20 @@ Use it narrowly:
 * ignore unrelated historical notes
 * treat the file as a source of durable project invariants, not as a second specification
 * if relevant decisions exist, summarize them briefly in Context or Constraints instead of copying them verbatim
+
+Complexity Assessment
+
+Before finalizing the brief, assess whether the requirement justifies added complexity.
+
+* Treat added complexity as a cost that must be justified by the requirement.
+* Flag any indication that the requirement may require:
+
+  - new project-wide capability
+  - new dependency
+  - cross-cutting architectural change
+
+  as a Risk, not a plan.
+* When complexity appears justified, do not design the solution here. Simply record that additional implementation effort is likely required.
 
 Task Brief Format
 
@@ -50,7 +65,11 @@ Relevant project background.
 
 # Constraints
 
-Business or technical limitations.
+Business or technical limitations. When materially supported by the exploration, record complexity expectations such as:
+
+- A new dependency does not currently appear necessary.
+- Existing project boundaries likely remain sufficient.
+- Cross-cutting changes do not currently appear justified.
 
 # Risks
 

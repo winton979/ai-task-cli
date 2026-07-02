@@ -19,6 +19,12 @@ Rules
 7. Validate the fix before stopping.
 8. If the bug is fixed, archive the brief automatically by moving it to .ai/bugs/archive/.
 
+When making implementation decisions
+
+* Extend existing behavior before introducing new abstractions.
+* Prefer the smallest behavioral correction that resolves the confirmed root cause.
+* Introduce new dependencies only when existing project capabilities cannot reasonably solve the problem.
+
 Output
 
 ## Root Cause

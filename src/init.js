@@ -30,6 +30,20 @@ Use it narrowly:
 * treat the file as a source of durable project invariants, not as a second specification
 * if relevant decisions exist, summarize them briefly in Context or Constraints instead of copying them verbatim`;
 
+const COMPLEXITY_ASSESSMENT_GUIDANCE = `Complexity Assessment
+
+Before finalizing the brief, assess whether the requirement justifies added complexity.
+
+* Treat added complexity as a cost that must be justified by the requirement.
+* Flag any indication that the requirement may require:
+
+  - new project-wide capability
+  - new dependency
+  - cross-cutting architectural change
+
+  as a Risk, not a plan.
+* When complexity appears justified, do not design the solution here. Simply record that additional implementation effort is likely required.`;
+
 const SKILLS = {
   'task-fast': {
     name: 'task-fast',
@@ -50,20 +64,23 @@ Workflow
 2. If no Grill Me compatible skill is available, clarify the requirement yourself with focused questions just far enough to remove ambiguity.
 3. Read the project code and conventions needed to avoid obvious conflicts.
 4. Read .ai/decisions/decisions.md if it exists and has entries. Pull in only decisions that materially constrain this task.
-5. Create a concise task brief and save it to:
+5. Before finalizing the brief, perform a Complexity Assessment.
+6. Create a concise task brief and save it to:
 
 .ai/tasks/active/YYYY-MM-DD-task-name.md
 
-6. Show the brief before coding.
-7. If the user does not object, implement immediately.
-8. Verify the result against the acceptance criteria.
-9. Archive the brief automatically by moving it to:
+7. Show the brief before coding.
+8. If the user does not object, implement immediately.
+9. Verify the result against the acceptance criteria.
+10. Archive the brief automatically by moving it to:
 
 .ai/tasks/archive/YYYY-MM-DD-task-name.md
 
-10. Summarize the outcome and any follow-up risks.
+11. Summarize the outcome and any follow-up risks.
 
 ${DECISIONS_READ_GUIDANCE}
+
+${COMPLEXITY_ASSESSMENT_GUIDANCE}
 
 Task Brief Format
 
@@ -77,7 +94,11 @@ Relevant project background.
 
 # Constraints
 
-Business or technical limitations.
+Business or technical limitations. When materially supported by the exploration, record complexity expectations such as:
+
+- A new dependency does not currently appear necessary.
+- Existing project boundaries likely remain sufficient.
+- Cross-cutting changes do not currently appear justified.
 
 # Risks
 
@@ -129,6 +150,8 @@ Workflow
 
 ${DECISIONS_READ_GUIDANCE}
 
+${COMPLEXITY_ASSESSMENT_GUIDANCE}
+
 Task Brief Format
 
 # Goal
@@ -141,7 +164,11 @@ Relevant project background.
 
 # Constraints
 
-Business or technical limitations.
+Business or technical limitations. When materially supported by the exploration, record complexity expectations such as:
+
+- A new dependency does not currently appear necessary.
+- Existing project boundaries likely remain sufficient.
+- Cross-cutting changes do not currently appear justified.
 
 # Risks
 
@@ -156,6 +183,7 @@ Requirements
 * Maximum 500 words
 * No code
 * No architecture design
+* Stay implementation-agnostic; describe constraints, not solutions
 * Only information required for execution
 
 When complete output:
@@ -187,6 +215,14 @@ Rules
 6. State assumptions explicitly.
 7. Validate the result before stopping.
 8. If the work is complete, archive the brief automatically by moving it to .ai/tasks/archive/.
+
+When making implementation decisions
+
+* Reuse existing helpers, patterns, and APIs before introducing new ones.
+* Before introducing a new abstraction, confirm that extending existing code would not satisfy the requirement.
+* Choose the simplest implementation that satisfies the acceptance criteria.
+* Introduce a new dependency or abstraction only when no in-project option exists, and state why.
+* Do not optimize for hypothetical future reuse.
 
 Output
 
@@ -374,6 +410,12 @@ Rules
 6. Explain reasoning.
 7. Validate the fix before stopping.
 8. If the bug is fixed, archive the brief automatically by moving it to .ai/bugs/archive/.
+
+When making implementation decisions
+
+* Extend existing behavior before introducing new abstractions.
+* Prefer the smallest behavioral correction that resolves the confirmed root cause.
+* Introduce new dependencies only when existing project capabilities cannot reasonably solve the problem.
 
 Output
 

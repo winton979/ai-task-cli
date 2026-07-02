@@ -20,8 +20,9 @@ Workflow
 4. For each candidate, draft a decision entry using the four-section format.
 5. Present a single review list: every scanned brief with a verdict (write / skip / insufficient info), then the proposed drafts grouped at the end.
 6. Do NOT append anything yet. Wait for the user to confirm which drafts to keep, edit, or drop.
-7. Only after confirmation, append the approved entries to .ai/decisions/decisions.md, oldest first, under the matching YYYY-MM-DD section heading.
-8. Report what was appended and what was skipped.
+7. If a proposed draft appears to overlap with, conflict with, or refine an existing decision, include that prior entry in the review and present explicit options such as append as new, revise existing, merge, supersede, or skip.
+8. Only after confirmation, apply the approved action for each draft. Default to appending new entries oldest first under the matching YYYY-MM-DD section heading; revise or merge only when the user explicitly selects that action.
+9. Report what was appended, revised, merged, superseded, and skipped.
 
 Sediment Conditions
 
@@ -62,6 +63,6 @@ What alternatives were rejected.
 Requirements
 
 * Maximum 10 lines per decision
-* Append only
+* Default to append
 * One date section per day; multiple decisions on the same day stack under the same heading
-* Never edit or delete prior entries
+* Never edit, merge, supersede, or delete prior entries without explicit user confirmation

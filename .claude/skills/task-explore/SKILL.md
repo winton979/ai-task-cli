@@ -33,6 +33,20 @@ Use it narrowly:
 * treat the file as a source of durable project invariants, not as a second specification
 * if relevant decisions exist, summarize them briefly in Context or Constraints instead of copying them verbatim
 
+Complexity Assessment
+
+Before finalizing the brief, assess whether the requirement justifies added complexity.
+
+* Treat added complexity as a cost that must be justified by the requirement.
+* Flag any indication that the requirement may require:
+
+  - new project-wide capability
+  - new dependency
+  - cross-cutting architectural change
+
+  as a Risk, not a plan.
+* When complexity appears justified, do not design the solution here. Simply record that additional implementation effort is likely required.
+
 Task Brief Format
 
 # Goal
@@ -45,7 +59,11 @@ Relevant project background.
 
 # Constraints
 
-Business or technical limitations.
+Business or technical limitations. When materially supported by the exploration, record complexity expectations such as:
+
+- A new dependency does not currently appear necessary.
+- Existing project boundaries likely remain sufficient.
+- Cross-cutting changes do not currently appear justified.
 
 # Risks
 
@@ -60,6 +78,7 @@ Requirements
 * Maximum 500 words
 * No code
 * No architecture design
+* Stay implementation-agnostic; describe constraints, not solutions
 * Only information required for execution
 
 When complete output:
